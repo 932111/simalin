@@ -101,6 +101,12 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'id_jenis' => [
+            'required' => 'Pilih Jenis Gangguan.',
+        ],
+        'id_app_jar' => [
+            'required' => 'Pilih data.'
+        ],
     ],
 
     /*

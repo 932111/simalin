@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Gangguan;
+use App\JenisLayanan;
+Use Auth;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -21,8 +24,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+        $kode = $request->kode_tracking;
+        $data = Gangguan::whereRaw('no_track = ?', [$kode])->get();
+        return view('pelapor.dashboard',compact('data'));
     }
 }

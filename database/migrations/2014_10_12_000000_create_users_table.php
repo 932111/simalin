@@ -13,9 +13,11 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('data_pelapor', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('no_id');
+            $table->string('id_asal');
+            $table->string('nama');
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();
@@ -30,6 +32,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('data_pelapor');
     }
 }

@@ -13,12 +13,28 @@
 
 Route::get('/', function () {
     return view('welcome');
+})->middleware('guest');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('dashboard');
+
+Route::POST('/home', 'HomeController@index')->name('track.cek');
+
+
+Route::prefix('admin')->group(function(){
+    Route::get('/masuk','Auth\AdminLoginController@showLoginForm')->name('admin.login');
+    Route::POST('/masuk','Auth\AdminLoginController@login')->name('admin.login.submit');
+    Route::get('/','AdminController@index')->name('admin.dashboard');
+
 });
 
-Auth::routes();
+Route::get('/lapor', 'GangguanController@create')->name('lapor.create');
 
-Route::get('/home', 'HomeController@index');
+Route::get('/data-jar', 'GangguanController@dataJar');
 
-Auth::routes();
+Route::get('/data-app', 'GangguanController@dataApp');
 
-Route::get('/home', 'HomeController@index');
+Route::POST('/lapor', 'GangguanController@store')->name('lapor.submit');
+
+
