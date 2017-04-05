@@ -30,4 +30,10 @@ class Admin extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function getJenis()
+    {
+        $jenis = JenisAdmin::where('id', Auth()->user()->id_jenis)->first()->nama_jenis;
+        return $jenis;
+    }
 }

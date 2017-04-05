@@ -36,4 +36,10 @@ class Gangguan extends Model
         $id = User::where('id', $idpelapor)->first()->id_asal;
         return AsalPelapor::where('id', $id)->first()->nama_asal;
     }
+    public function pelapor()
+    {
+        $idp = $this->id_pelapor;
+        $pengguna = User::where('id', $idp)->first()->nama;
+        return $pengguna;
+    }
 }
