@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\AsalPelapor;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -21,6 +22,12 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+
+    public function showFormPendaftaran()
+    {
+        $asal = AsalPelapor::all();
+        return view('auth.register', compact('asal'));
+    }
 
     /**
      * Where to redirect users after registration.

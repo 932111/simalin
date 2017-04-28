@@ -14,15 +14,19 @@ class DataStatusTableSeeder extends Seeder
     public function run()
     {
         $status = new Status();
-        $status->keterangan = 'Laporan belum diproses';
+        $status->keterangan = 'Laporan baru';
         $status->save();
 
         $status = new Status();
-        $status->keterangan = 'Laporan sedang diproses';
+        $status->keterangan = 'Penanganan Online';
         $status->save();
 
         $status = new Status();
-        $status->keterangan = 'Laporan selesai diproses';
+        $status->keterangan = 'Penanganan Offline';
+        $status->save();
+
+        $status = new Status();
+        $status->keterangan = 'Penanganan Selesai';
         $status->save();
     }
 }

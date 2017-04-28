@@ -4,10 +4,16 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Auth;
 
 class Admin extends Authenticatable
 {
     use Notifiable;
+
+    public function gangguan()
+    {
+        return $this->belongsToMany('App\Gangguan', 'petugas_gangguan', 'id_admin', 'id_gangguan');
+    }
 
     protected $table = 'data_admin';
 
@@ -19,7 +25,7 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nama', 'email', 'password', 'id_jenis', 'username'
+        'nama', 'email', 'password', 'id_jenis', 'username', 'nip'
     ];
 
     /**
@@ -35,5 +41,14 @@ class Admin extends Authenticatable
     {
         $jenis = JenisAdmin::where('id', Auth()->user()->id_jenis)->first()->nama_jenis;
         return $jenis;
+    }
+    public function getNamaDepan()
+    {
+        $nama = Auth::user()->nama;
+        $nama = explode(' ', $nama);
+
+        $namadepan = $nama[0];
+
+        return $namadepan;
     }
 }

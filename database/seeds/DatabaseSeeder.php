@@ -20,5 +20,9 @@ class DatabaseSeeder extends Seeder
         $this->call(DataJenisLayananTableSeeder::class);
         $this->call(DataStatusTableSeeder::class);
         $this->call(AdminTableSeeder::class);
+        $this->call(KategoriGangguanTableSeeder::class);
+        $this->call(MediaPelaporanTableSeeder::class);
+        $this->call(PenangananSeeder::class);
+
     }
 }

@@ -102,10 +102,19 @@ return [
             'rule-name' => 'custom-message',
         ],
         'id_jenis' => [
-            'required' => 'Pilih Jenis Gangguan.',
+            'required' => 'Jenis gangguan tidak boleh kosong!',
         ],
         'id_app_jar' => [
-            'required' => 'Pilih data.'
+            'required' => 'Data tidak boleh kosong!'
+        ],
+        'id_kategori' => [
+            'required' => 'Kategori tidak boleh kosong!'
+        ],
+        'id[]' => [
+            'required' => 'Petugas belum dipilih!'
+        ],
+        'id_asal' => [
+            'required' => 'Pilih Asal Pelapor!'
         ],
     ],
 

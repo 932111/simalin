@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Auth;
 
 class User extends Authenticatable
 {
@@ -30,5 +31,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function getNamaDepan()
+    {
+        $nama = Auth::user()->nama;
+        $nama = explode(' ', $nama);
+
+        $namadepan = $nama[0];
+
+        return $namadepan;
+    }
 
 }

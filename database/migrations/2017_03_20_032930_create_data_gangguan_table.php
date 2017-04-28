@@ -18,8 +18,9 @@ class CreateDataGangguanTable extends Migration
             $table->integer('id_pelapor');
             $table->integer('id_jenis');
             $table->integer('id_aplikasi_atau_jaringan');
-            $table->text('detail');
-            $table->integer('id_status');
+            $table->integer('id_media')->default(1);
+            $table->text('detail')->nullable();
+            $table->integer('id_status')->default(1);
             $table->string('no_track');
             $table->rememberToken();
             $table->timestamps();

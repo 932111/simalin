@@ -6,12 +6,19 @@ use App\Aplikasi;
 use App\Gangguan;
 use App\Jaringan;
 use App\JenisLayanan;
+use App\Kategori;
+use App\Media;
 use Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class GangguanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -32,7 +39,8 @@ class GangguanController extends Controller
         $jgangguan = JenisLayanan::all();
         $app = Aplikasi::all();
         $jar = Jaringan::all();
-        return view('lapor.create', compact('jgangguan','app','jar'));
+        $kategori = Kategori::all();
+        return view('lapor.create', compact('jgangguan','app','jar','kategori'));
     }
 
     /**
@@ -45,7 +53,8 @@ class GangguanController extends Controller
     {
         $this->validate($request,[
             'id_jenis' => 'required',
-            'id_app_jar' =>'required'
+            'id_app_jar' =>'required',
+            'id_kategori' => 'required'
         ]);
 
         //$status = Status::all();
@@ -57,6 +66,8 @@ class GangguanController extends Controller
         $id_app_jar = $request->id_app_jar;
         $id_jenis = $request->id_jenis;
         $no_track = $id.$codeS.$codeM.$codeH;
+        $kategori = Kategori::where('id', $request->id_kategori)->first();
+        $media = Media::where('id', 1)->first();
 
         $gangguan = new Gangguan();
         $gangguan->id_pelapor = $id;
@@ -66,6 +77,9 @@ class GangguanController extends Controller
         $gangguan->id_status = $status;
         $gangguan->no_track = $no_track;
         $gangguan->save();
+        $gangguan->kategori()->attach($kategori);
+        $gangguan->media()->attach($media);
+
 
         $idgangguan = $gangguan->id;
         $track = $gangguan->no_track = $idgangguan.$codeH.$codeM;

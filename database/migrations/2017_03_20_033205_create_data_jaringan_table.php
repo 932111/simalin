@@ -16,7 +16,7 @@ class CreateDataJaringanTable extends Migration
         Schema::create('data_jaringan', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama_jaringan');
-            $table->string('alamat');
+            $table->string('alamat')->nullable();
             $table->integer('id_jenis');
             $table->rememberToken();
             $table->timestamps();

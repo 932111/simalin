@@ -16,8 +16,8 @@ class CreateDataAsalPelaporTable extends Migration
         Schema::create('data_asal_pelapor', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nama_asal');
-            $table->string('alamat_asal');
-            $table->string('no_kontak');
+            $table->string('alamat_asal')->nullable();
+            $table->string('no_kontak')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

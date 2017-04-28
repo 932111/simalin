@@ -59,7 +59,7 @@
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="{{  url('/assets/img/admin.png') }}" class="user-image" alt="User Image">
-                            <span class="hidden-xs">{{ ucwords(Auth()->user()->nama) }}</span>
+                            <span class="hidden-xs">{{ strtoupper(Auth()->user()->getNamaDepan()) }}</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
@@ -69,7 +69,7 @@
                                 <p>
                                     {{ ucwords(Auth()->user()->nama) }} - {{ Auth()->user()->getJenis() }}
 
-                                    <small>Member since {{ date("F", mktime(0, 0, 0, Auth()->user()->created_at->month, 1)) }}. {{Auth()->user()->created_at->year}}</small>
+                                    <small>Terdaftar sejak {{ date("F", mktime(0, 0, 0, Auth()->user()->created_at->month, 1)) }} {{Auth()->user()->created_at->year}}</small>
                                 </p>
                             </li>
                             <!-- Menu Body -->
@@ -110,14 +110,15 @@
                     <img src="{{  url('/assets/img/admin.png') }}" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p>{{ ucwords(Auth()->user()->nama) }}</p>
+                    <p>{{ strtoupper(Auth()->user()->getNamaDepan()) }}</p>
                     {{ Auth()->user()->getJenis() }}
                 </div>
             </div>
             <!-- search form -->
-            <form action="#" method="get" class="sidebar-form">
+            <form action="{{ route('admin.track') }}" method="post" class="sidebar-form" role="form">
+                {{ csrf_field() }}
                 <div class="input-group">
-                    <input type="text" name="q" class="form-control" placeholder="Kode Tracking">
+                    <input type="text" name="kode_tracking" class="form-control" placeholder="Kode Tracking">
                     <span class="input-group-btn">
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
@@ -135,9 +136,10 @@
                     </a>
                 </li>
                 <li class="header">LABEL</li>
-                <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Terbaru</span></a></li>
-                <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Diproses</span></a></li>
-                <li><a href="#"><i class="fa fa-circle-o text-green"></i> <span>Selesai</span></a></li>
+                <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Laporan Baru</span> <span class="badge bg-red pull-right">{{ $baruhitung }}</span></a></li>
+                <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Penanganan Offline</span> <span class="badge bg-yellow pull-right">{{ $offlinehitung }}</span></a></li>
+                <li><a href="#"><i class="fa fa-circle-o text-blue"></i> <span>Penanganan Online</span> <span class="badge bg-blue pull-right">{{ $onlinehitung }}</span></a></li>
+                <li><a href="#"><i class="fa fa-circle-o text-green"></i> <span>Selesai</span> <span class="badge bg-green pull-right">{{ $selesaihitung }}</span></a></li>
             </ul>
         </section>
         <!-- /.sidebar -->

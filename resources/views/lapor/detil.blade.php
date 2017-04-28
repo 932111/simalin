@@ -57,23 +57,36 @@
                             <td>{{ ucwords($lgangguan->pelapor()) }}</td>
                         </tr>
                         <tr>
-                            <td>
-                                <div class="btn btn-default pull-right">
-                                    Cek
-                                </div>
-                            </td>
-                            <td></td>
+                            <td style="text-align: right">Penanganan</td>
+                            <td width="1px">:</td>
                             <td>
                                 @if($lgangguan->id_status == 1)
-                                    <div class="btn btn-warning">
-                                        Proses
-                                    </div>
-                                    @elseif($lgangguan->id_status == 2)
-                                        <div class="btn btn-success">
-                                            Selesai
-                                        </div>
-                                    @else
-                                    
+
+                                    <form role="form" method="POST" action="{{ route('penanganan.offline.simpan') }}">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="id_gangguan" value="{{ $lgangguan->id }}">
+                                        <input type="hidden" name="id_jenis_penanganan" value="1">
+                                        <button type="submit" class="btn btn-warning btn-xs">Offline</button>
+                                    </form>
+
+                                    <form role="form" method="POST" action="{{ route('penanganan.online.simpan') }}">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="id_gangguan" value="{{ $lgangguan->id }}">
+                                        <input type="hidden" name="id_jenis_penanganan" value="2">
+                                        <button type="submit" class="btn btn-info btn-xs">Online</button>
+                                    </form>
+
+                                @elseif($lgangguan->id_status == 2 or $lgangguan->id_status == 3)
+                                    <a href="{{ route('update.gangguan',$lgangguan->id) }}" class="btn btn-success btn-xs">
+                                        Update
+                                    </a>
+                                @else
+                                    Penanganan Laporan telah selesai secara @foreach($lgangguan->penanganan as $index => $jenis)
+                                    {{ ucfirst($jenis->nama) }}
+                                    @endforeach
+                                    oleh: <br> @foreach($lgangguan->admin as $index => $admin)
+                                        {{ $index+1 }}. {{ ucwords($admin->nama) }}<br>
+                                    @endforeach
                                 @endif
                             </td>
                         </tr>

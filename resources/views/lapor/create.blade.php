@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.pelapor')
 
 @section('content')
     </br>
@@ -8,6 +8,7 @@
                     <div class="panel-heading" style="background-color: #2a3b48; color: #ffffff"><center>Entri Data Gangguan</center></div>
                     <div class="panel-body">
                         <form class="form-horizontal" role="form" method="POST" action="{{ route('lapor.submit') }}">
+
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('id_jenis') ? ' has-error' : '' }}">
@@ -15,8 +16,8 @@
 
                                 <div class="col-md-6">
                                     <select name="id_jenis" id="id_jenis" class="form-control jgangguan" value="{{ old('id_jenis') }}" required>
-                                        <option disabled="true" selected="true">- Pilihan -</option>
-                                    @forelse($jgangguan as $jgangguan)
+                                        <option disabled="true" selected="true">- Pilihan Jenis -</option>
+                                        @forelse($jgangguan as $jgangguan)
                                             <option value="{{ $jgangguan->id }}">{{ $jgangguan->nama_layanan }}</option>
                                         @empty
 
@@ -35,12 +36,33 @@
 
                                 <div class="col-md-6">
                                     <select name="id_app_jar" id="id_app_jar" class="form-control jappjar" value="{{ old('id_app_jar') }}" required>
-                                        <option value="0" disabled selected>- Pilihan -</option>
+                                        <option value="0" disabled selected>- Pilihan Jaringan/Aplikasi -</option>
                                     </select>
 
                                     @if ($errors->has('id_app_jar'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('id_app_jar') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('id_kategori') ? ' has-error' : '' }}">
+                                <label for="id_kategori" class="col-md-4 control-label"></label>
+
+                                <div class="col-md-6">
+                                    <select name="id_kategori" id="id_kategori" class="form-control" value="{{ old('id_kategori') }}" required>
+                                        <option disabled selected>- Kategori Gangguan -</option>
+                                        @forelse($kategori as $kat)
+                                            <option value="{{ $kat->id }}">{{ $kat->nama }}</option>
+                                        @empty
+
+                                        @endforelse
+                                    </select>
+
+                                    @if ($errors->has('id_kategori'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('id_kategori') }}</strong>
                                     </span>
                                     @endif
                                 </div>

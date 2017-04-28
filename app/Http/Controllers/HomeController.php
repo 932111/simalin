@@ -24,10 +24,15 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
+    {
+        return view('pelapor.dashboard');
+    }
+
+    public function tracking(Request $request)
     {
         $kode = $request->kode_tracking;
-        $data = Gangguan::whereRaw('no_track = ?', [$kode])->get();
-        return view('pelapor.dashboard',compact('data'));
+        $data = Gangguan::whereRaw('no_track = ?', [$kode])->first();
+        return view('pelapor.tracking',compact('data') );
     }
 }

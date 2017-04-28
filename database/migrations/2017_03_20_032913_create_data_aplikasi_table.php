@@ -20,7 +20,7 @@ class CreateDataAplikasiTable extends Migration
             $table->string('nama_pengembang');
             $table->string('kontak_pengembang')->unique();
             $table->integer('id_jenis');
-            $table->string('deskripsi_aplikasi');
+            $table->string('deskripsi_aplikasi')->nullabel();
             $table->rememberToken();
             $table->timestamps();
         });
